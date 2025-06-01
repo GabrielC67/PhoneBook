@@ -1,6 +1,7 @@
 package com.zipcodewilmington.phonebook;
 
 import java.util.*;
+import java.util.stream.Collectors;
 //import java.util.HashMap;
 
 
@@ -14,7 +15,7 @@ public class PhoneBook {
 
     public PhoneBook(Map<String, List<String>> map) {//Constructor
         if (map == null){
-            this.phonebook = new HashMap<>();
+            this.phonebook = new LinkedHashMap<>();
         }
         else {
             this.phonebook = map;
@@ -26,14 +27,7 @@ public class PhoneBook {
     }
 
     public void add(String name, String phoneNumber) {
-        if (name == "" || name == null){
-            throw new NullPointerException ("Name cannot be empty");
-        } else if (phoneNumber == "" || phoneNumber == null) {
-            throw new NullPointerException("Phone Number cannot be empty nor null");
-        } else{
-            phonebook.put(name, List.of(phoneNumber));
-        }
-
+            phonebook.computeIfAbsent(name, k -> new ArrayList<>()).add(phoneNumber);
     }
 
     public void addAll(String name, String... phoneNumbers) {
@@ -73,7 +67,7 @@ public class PhoneBook {
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        return new ArrayList<>(phonebook.keySet());
     }
 
     public Map<String, List<String>> getMap() {
