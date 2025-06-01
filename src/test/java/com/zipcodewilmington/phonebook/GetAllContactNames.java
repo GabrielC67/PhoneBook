@@ -14,6 +14,7 @@ public class GetAllContactNames {
         String[] names = new String[]{"John", "Joe", "Jim", "Jay"};
         for (int i = 0; i < names.length; i++) {
             String name = names[i];
+            System.out.println(name);
             phoneBook.add(name, "");
         }
 

@@ -23,6 +23,7 @@ public class AddAllTest {
 
         // when
         phoneBook.addAll(name, phoneNumbers);
+        System.out.println("Stored " + phoneBook.getMap());
         List<String> actualPhoneNumbers = phoneBook.lookup(name);
         Assert.assertEquals(Arrays.asList(phoneNumbers), actualPhoneNumbers);
     }

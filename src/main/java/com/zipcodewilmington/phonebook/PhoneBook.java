@@ -26,24 +26,49 @@ public class PhoneBook {
     }
 
     public void add(String name, String phoneNumber) {
-        //this.phonebook = (name, phoneNumber);
+        if (name == "" || name == null){
+            throw new NullPointerException ("Name cannot be empty");
+        } else if (phoneNumber == "" || phoneNumber == null) {
+            throw new NullPointerException("Phone Number cannot be empty nor null");
+        } else{
+            phonebook.put(name, List.of(phoneNumber));
+        }
+
     }
 
     public void addAll(String name, String... phoneNumbers) {
+        if (name == null || name == ""){
+            throw new NullPointerException("Name cannot be Null nor empty");
+        } else if (phoneNumbers == null) {
+            throw  new NullPointerException("Phone numbers cannot contain a null value");
+        } else
+            phonebook.computeIfAbsent(name, k -> new ArrayList<>()).addAll(Arrays.asList(phoneNumbers));
+
     }
 
     public void remove(String name) {
+        phonebook.remove(name);
     }
 
     public Boolean hasEntry(String name) {
-        return null;
+        if (name == "" || name == null){
+            throw new NullPointerException("Name cannot be empty nor Null");
+        } else if (phonebook.containsKey(name)) {
+            return true;
+        }
+        return false;
     }
 
     public List<String> lookup(String name) {
-        return null;
+        return phonebook.get(name);
     }
 
     public String reverseLookup(String phoneNumber)  {
+        for (Map.Entry<String, List<String>> entry : phonebook.entrySet()) {
+            if (entry.getValue().contains(phoneNumber)) {
+                return entry.getKey();
+            }
+        }
         return null;
     }
 
